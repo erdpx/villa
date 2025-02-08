@@ -1,0 +1,23 @@
+name: medial_cubes
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.12
+  - numpy<2
+  - scipy
+  - scikit-image
+  - scikit-learn
+  - trimesh
+  - tqdm
+  - matplotlib
+  - pyvista
+  - pynrrd
+  - numba
+  - graph-tool
+  - open3d
+  - zarr
+  - pip:
+    - fastmorph
+    - distinctipy
+    - pymeshlab
