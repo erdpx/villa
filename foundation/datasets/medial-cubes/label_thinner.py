@@ -153,7 +153,9 @@ def process_single_label_2(label_data, label_value, front=True, back=True, mask_
 
     cc3d.dust(inverted_mask, threshold=4096, connectivity=26, in_place=True)
 
-    best_result_slices = np.zeros_like(label_data)
+    best_result_slices_z = np.zeros_like(label_data)
+    best_result_slices_y = np.zeros_like(label_data)
+    best_result_slices_x = np.zeros_like(label_data)
     best_result = np.zeros_like(label_data)
     filtered_labels = np.zeros_like(label_data)
     for z in range(label_data.shape[0]):
@@ -162,12 +164,17 @@ def process_single_label_2(label_data, label_value, front=True, back=True, mask_
         filtered_labels[z] = 1-filtered_labels[z]
 
     for z in range(label_data.shape[0]):
-      best_result_slices[z] = skeletonize(filtered_labels[z], surface=False)
+      best_result_slices_z[z] = skeletonize(filtered_labels[z], surface=False)
+    for y in range(label_data.shape[1]):
+      best_result_slices_y[y] = skeletonize(filtered_labels[y], surface=False)
+    for x in range(label_data.shape[2]):
+      best_result_slices_x[x] = skeletonize(filtered_labels[x], surface=False)
 
     best_result = skeletonize(filtered_labels, surface=True)
 
-    np.logical_or(best_result, best_result_slices, out=best_result)
-
+    np.logical_or(best_result, best_result_slices_z, out=best_result)
+    np.logical_or(best_result, best_result_slices_y, out=best_result)
+    np.logical_or(best_result, best_result_slices_x, out=best_result)
     #distance = ndi.distance_transform_edt(filtered_labels)
     #best_result = skel_pruning_DSE(best_result, distance)
 
