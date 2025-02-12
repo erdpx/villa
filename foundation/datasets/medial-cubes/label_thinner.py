@@ -166,9 +166,9 @@ def process_single_label_2(label_data, label_value, front=True, back=True, mask_
     for z in range(label_data.shape[0]):
       best_result_slices_z[z] = skeletonize(filtered_labels[z], surface=False)
     for y in range(label_data.shape[1]):
-      best_result_slices_y[y] = skeletonize(filtered_labels[y], surface=False)
+      best_result_slices_y[:,y,:] = skeletonize(filtered_labels[:,y,:], surface=False)
     for x in range(label_data.shape[2]):
-      best_result_slices_x[x] = skeletonize(filtered_labels[x], surface=False)
+      best_result_slices_x[:,:,x] = skeletonize(filtered_labels[:,:,x], surface=False)
 
     best_result = skeletonize(filtered_labels, surface=True)
 
