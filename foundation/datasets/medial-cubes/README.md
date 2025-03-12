@@ -13,6 +13,7 @@ cd scikit-image
 git switch medial-surface-thinning
 
 pip install build wheel
+
 python -m build --wheel
 
 pip install dist/scikit_image-0.24.1rc0.dev0-cp312-cp312-linux_x86_64.whl
